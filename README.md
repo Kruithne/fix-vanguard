@@ -75,6 +75,9 @@ Anyone who has worked with SteamWorks (Valve's API for games on Steam) knows thi
 
 Achievements with a counter below the target stay locked. Play more, then run the tool again.
 
+### Gotta Try Them All
+The progress tracked for the Gotta Try Them All achievement may show a much higher number than 15. The reason for this is a bug in the tracking script itself. Once the 15 weapon list is full, each kill with a weapon that is not in the list adds 1. This is fine, and it still requires the correct critera to unlock.
+
 ## Why this is safe
 
 - The tool does not start the game and does not attach to the game process. There is no injection, no memory read or write, and no hook.
