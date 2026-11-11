@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: build
+        shell: cmd
+        run: build.bat
+
+      - name: package
+        shell: pwsh
+        run: Compress-Archive -Path fix-vanguard.exe, README.md -DestinationPath fix-vanguard.zip
+
+      - name: release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "build-${{ github.run_number }}" fix-vanguard.zip --target "${{ github.sha }}" --title "Build ${{ github.run_number }}" --generate-notes --latest
